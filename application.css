@@ -1,0 +1,63 @@
+.ng-invalid.ng-dirty {
+  border-color: red;
+}
+
+.ng-valid.ng-dirty {
+  border-color: green;
+}
+
+.green {
+	background-color: green;
+	opacity: 0.82;
+  	border: 0.5px solid green;
+}
+
+.green:hover {
+    opacity: 0.97;
+}
+
+.red {
+	background-color: red;
+	opacity: 0.82;
+  	border: 0.5px solid red;
+}
+
+.red:hover {
+    opacity: 0.97;
+}
+
+.filters {
+	text-align: center;
+}
+
+.review {
+	position: relative;
+	margin-top: 50px;
+}
+
+
+
+li.red {
+	text-color: red;
+}
+
+ul
+{
+    list-style-type: none;
+}
+
+li
+{
+    list-style-type: none;
+}
+
+.hello {
+	font-size: 20px;
+}
+
+
+body {
+    background: url('congruent_pentagon.png') repeat left top
+}
+
+
