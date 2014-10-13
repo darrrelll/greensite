@@ -1,0 +1,38 @@
+  <div class="col-md-5 review">
+    <h3 class="pull-right hello">Please tell us how to improve this service!</h3>
+      <li ng-repeat="review in reviews.reviews | orderBy:'votes':true">
+        <blockquote>
+          <h3>{{review.body}}</h3>
+          <span>{{review.author}} from {{review.country}}  on {{review.createdOn | date}}</span>
+          <br>
+          <span ng-click="review.votes = review.votes + 1" style='cursor:pointer'><b> /\ </b></span>
+          <span>{{review.votes}} votes</span> 
+          <span ng-click="review.votes = review.votes - 1" style='cursor:pointer'><b> \/ </b></span>        
+        </blockquote>
+      </li>
+
+    <!--  Suggestion Form -->
+    <form name="reviewForm"  ng-submit="review.addReview(product)">
+
+      <!--  Live Preview -->
+      <blockquote>
+        <h3>{{review.body}}</h3>
+        <span>{{review.author}}</span><span>   {{review.country}} </span>
+      </blockquote>
+
+      <!--  Suggestion Form -->
+      <h4>Submit a Suggestions</h4>
+      <fieldset class="form-group">
+        <textarea ng-model="review.body" class="form-control" placeholder="This is a beta. Tell everyone how you would like to see this site improved...." title="Review"></textarea>
+      </fieldset>
+      <fieldset class="form-group">
+        <input ng-model="review.author" class="form-control" placeholder="johnjohn@example.org or name" title="Email" />
+      </fieldset>
+      <fieldset class="form-group">
+        <input ng-model="review.country" class="form-control" placeholder="USA" title="Country" />
+      </fieldset>
+      <fieldset class="form-group">
+        <input type="submit" class="btn btn-primary pull-right" value="Submit Suggestion" />
+      </fieldset>
+    </form>
+  </div>

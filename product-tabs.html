@@ -1,0 +1,29 @@
+<section>
+  <ul class="nav nav-pills">
+    <li ng-class="{ active:tab.isSet(1) }">
+      <a href="" ng-click="tab.setTab(1)">News</a>
+    </li>
+    <li ng-class="{ active:tab.isSet(2) }">
+      <a href="" ng-click="tab.setTab(2)">Scores</a>
+    </li>
+    <li ng-class="{ active:tab.isSet(3) }">
+      <a href="" ng-click="tab.setTab(3)">Alternatives</a>
+    </li>
+  </ul>
+
+  <div ng-show="tab.isSet(1)">
+    {{links.news}}
+  </div>
+
+  <div ng-show="tab.isSet(2)">
+    <blockquote>{{links.goverance}}</blockquote>
+    <blockquote>{{links.environment}}</blockquote>
+    <blockquote>{{links.community}}</blockquote>
+  </div>
+  
+  <div ng-show="tab.isSet(3)">
+    <section ng-show="site.alternatives.length">
+    <ul class="list-inline thumbs">{{links.alternatives}</ul>
+    </section>
+  </div>
+</section>
