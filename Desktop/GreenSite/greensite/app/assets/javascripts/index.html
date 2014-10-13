@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html ng-app="greenSite">
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+    <script type="text/javascript" src="seed.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="site.js"></script>
+    <script type="text/javascript" src="suggestion.js"></script>
+    <link rel="stylesheet" href="application.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1 class="text-center">What are your clicks powered by?</h1>
+      <h3 class="text-center"> ~<i>find sites <a href="http://en.wikipedia.org/wiki/Renewable_energy">green</a> energy sites and <a href="http://en.wikipedia.org/wiki/Corporate_social_responsibility">good</a> companies<i>~</h3>
+    </header>
+
+    <div class="list-group col-md-5 col-md-offset-1" ng-controller="ListController as list">
+    <div>
+      <h5>Filter By: 
+      <span ng-click="myFilter = {green: true}">Renewable</span>  |
+      <span ng-click="myFilter = {green: false}">Fossil</span> |
+      <span ng-click="myFilter = null">All</span></h3>
+    </div>
+
+    <div>
+      <h5>Order By CSR score:
+      <span ng-click="order = 'governance'; sort=!sort; false" >Goverance</span> |
+      <span ng-click="order = 'environment'; sort=!sort; false">Environmental</span> |
+      <span ng-click="order = 'community'; sort=!sort; false">Community</span></h3>
+    </div>
+      <div class="list-group-item site" ng-class="{'green': {{site.green}}, 'red': {{!site.green}}}" ng-repeat="site in list.links | filter:myFilter |orderBy:order:sort">
+        <h4>Alexa Rank: {{site.rank}} |
+          <em><i>{{site.url}}</i></em>
+          {{site.description}}</h4>
+          <section  ng-controller="TabController as tab">
+            <ul class="nav nav-pills">
+              <li ng-class="{ active:tab.isSet(1) }">
+                <a href="" ng-click="tab.setTab(1)">News</a>
+              </li>
+              <li ng-class="{ active:tab.isSet(2) }">
+                <a href="" ng-click="tab.setTab(2)">CSR Scores</a>
+              </li>
+              <li ng-class="{ active:tab.isSet(3) }">
+              <!-- Find out how you sort true and false items -->
+                <a href="" ng-click="tab.setTab(3)">Alternate Sites</a>
+              </li>
+            </ul>
+
+            <div ng-show="tab.isSet(1)">
+              <blockquote><a href="{{site.news.url}}">{{site.news.headline}}</a></blockquote>
+            </div>
+
+            <div ng-show="tab.isSet(2)">
+              <blockquote>Governance: {{site.governance}}<br>
+              Environment: {{site.environment}}<br>
+              Community: {{site.community}}<br><i>    by CSRhub</i></blockquote>
+            </div>
+            
+            <div ng-show="tab.isSet(3)">
+        
+                <blockquote>
+                <ul class="list-inline">
+                  <li ng-class="{'green': {{alternate.green}}, 'red': {{!alternate.green}}}" ng-repeat="alternate in site.alternatives | orderBy:order"><a href={{alternate.url}}>{{alternate.url}}</a></li>
+                </ul>
+                </blockquote>
+   
+            </div>
+          </section>
+        </h3>
+      </div>
+    </div>  
+
+
+  <!--  Suggestions List -->
+  <div class="col-md-5 review" ng-controller ="ReviewController as reviews"
+    <h3 class="pull-right hello">Please tell us how to improve this service!</h3>
+      <li ng-repeat="review in reviews.reviews | orderBy:'votes':true">
+        <blockquote>
+          <h3>{{review.body}}</h3>
+          <span>{{review.author}} from {{review.country}}  on {{review.createdOn | date}}</span>
+          <br>
+          <span ng-click="review.votes = review.votes + 1" style='cursor:pointer'><b> /\ </b></span>
+          <span>{{review.votes}} votes</span> 
+          <span ng-click="review.votes = review.votes - 1" style='cursor:pointer'><b> \/ </b></span>        
+        </blockquote>
+      </li>
+
+    <!--  Suggestion Form -->
+    <form name="reviewForm" ng-controller="ReviewController as reviewCtrl" ng-submit="reviewCtrl.addReview(product)">
+
+      <!--  Live Preview -->
+      <blockquote>
+        <h3>{{reviewCtrl.review.body}}</h3>
+        <span>{{reviewCtrl.review.author}}</span><span>   {{reviewCtrl.review.country}} </span>
+      </blockquote>
+
+      <!--  Suggestion Form -->
+      <h4>Submit a Suggestions</h4>
+      <fieldset class="form-group">
+        <textarea ng-model="reviewCtrl.review.body" class="form-control" placeholder="This is a beta. Tell everyone how you would like to see this site improved...." title="Review"></textarea>
+      </fieldset>
+      <fieldset class="form-group">
+        <input ng-model="reviewCtrl.review.author" class="form-control" placeholder="johnjohn@example.org or name" title="Email" />
+      </fieldset>
+      <fieldset class="form-group">
+        <input ng-model="reviewCtrl.review.country" class="form-control" placeholder="USA" title="Country" />
+      </fieldset>
+      <fieldset class="form-group">
+        <input type="submit" class="btn btn-primary pull-right" value="Submit Suggestion" />
+      </fieldset>
+    </form>
+  </div>
+
+  </body>
+</html>
